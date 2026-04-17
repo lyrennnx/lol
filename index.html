@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>Fragrance POS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ═══════════════ LOGIN SCREEN ═══════════════ -->
+<div id="login-screen">
+  <div class="login-bg">
+    <div class="login-bubbles">
+      <div class="lb lb1"></div><div class="lb lb2"></div>
+      <div class="lb lb3"></div><div class="lb lb4"></div><div class="lb lb5"></div>
+    </div>
+  </div>
+  <div class="login-card">
+    <div class="login-brand">
+      <div class="login-logo-svg">
+        <svg viewBox="0 0 320 90" xmlns="http://www.w3.org/2000/svg" class="brand-svg">
+          <!-- Perfume bottle -->
+          <rect x="8" y="18" width="28" height="6" rx="3" fill="white"/>
+          <rect x="4" y="24" width="36" height="52" rx="5" fill="white"/>
+          <text x="22" y="58" font-family="Georgia,serif" font-size="13" font-weight="900" fill="#3d1a6e" text-anchor="middle">the</text>
+          <!-- 1470. text -->
+          <text x="58" y="78" font-family="Arial Black,sans-serif" font-size="72" font-weight="900" fill="white" letter-spacing="-2">1470.</text>
+        </svg>
+      </div>
+      <div class="login-tagline">GOOD SCENTS GOOD VIBES</div>
+    </div>
+    <div class="login-roles">
+      <button class="role-btn active" data-role="owner">
+        <span class="role-icon">👑</span><span class="role-name">Owner</span>
+      </button>
+      <button class="role-btn" data-role="employee">
+        <span class="role-icon">👤</span><span class="role-name">Employee</span>
+      </button>
+    </div>
+    <div class="login-role-badge" id="login-role-badge">
+      <span id="login-role-icon">👑</span>
+      <span id="login-role-text">Logging in as Owner</span>
+    </div>
+    <div class="login-form">
+      <div class="login-field">
+        <label class="login-label">Username</label>
+        <div class="login-input-wrap">
+          <span class="login-input-icon">👤</span>
+          <input type="text" id="login-username" class="login-input" placeholder="Enter username" autocomplete="off" />
+        </div>
+      </div>
+      <div class="login-field">
+        <label class="login-label">Password</label>
+        <div class="login-input-wrap">
+          <span class="login-input-icon">🔒</span>
+          <input type="password" id="login-password" class="login-input" placeholder="Enter password" />
+          <button class="login-eye" id="login-eye" type="button">👁</button>
+        </div>
+      </div>
+      <div class="login-error" id="login-error" style="display:none">⚠ Incorrect username or password</div>
+      <button class="login-btn" id="login-btn"><span id="login-btn-text">Sign In →</span></button>
+    </div>
+    <div class="login-hint">
+      <div class="hint-title">💡 Demo Credentials</div>
+      <div class="hint-row"><span>Owner:</span><span><b>admin</b> / <b>owner123</b></span></div>
+      <div class="hint-row"><span>Employee:</span><span><b>staff</b> / <b>emp123</b></span></div>
+    </div>
+    <div class="login-footer">POS_CPET-8 LAB &nbsp;·&nbsp; v3.07</div>
+  </div>
+</div>
+
+<div id="app" style="display:none">
+
+  <!-- ── LEFT SIDEBAR NAV ── -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo-svg">
+        <svg viewBox="0 0 160 44" xmlns="http://www.w3.org/2000/svg" class="sidebar-brand-svg">
+          <rect x="3" y="7" width="13" height="3" rx="1.5" fill="white"/>
+          <rect x="1" y="10" width="17" height="25" rx="3" fill="white"/>
+          <text x="9.5" y="26" font-family="Georgia,serif" font-size="6" font-weight="900" fill="#3d1a6e" text-anchor="middle">the</text>
+          <text x="26" y="38" font-family="Arial Black,sans-serif" font-size="34" font-weight="900" fill="white" letter-spacing="-1">1470.</text>
+        </svg>
+      </div>
+      <div class="sidebar-pos" id="sidebar-pos-name">POS_CPET-8 LAB</div>
+      <div class="sidebar-clock sidebar-clock--header" id="clock"></div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <button class="snav-btn active" data-screen="sales">
+        <span class="snav-icon">🛒</span>
+        <span class="snav-label">Sales</span>
+      </button>
+      <button class="snav-btn" data-screen="receipts">
+        <span class="snav-icon">🧾</span>
+        <span class="snav-label">Receipts</span>
+      </button>
+      <button class="snav-btn" data-screen="items">
+        <span class="snav-icon">📋</span>
+        <span class="snav-label">Items</span>
+      </button>
+      <button class="snav-btn" data-screen="inventory">
+        <span class="snav-icon">📦</span>
+        <span class="snav-label">Inventory</span>
+      </button>
+      <button class="snav-btn owner-only" data-screen="users">
+        <span class="snav-icon">👥</span>
+        <span class="snav-label">Users</span>
+      </button>
+      <button class="snav-btn" data-screen="history">
+        <span class="snav-icon">📊</span>
+        <span class="snav-label">History</span>
+      </button>
+      <button class="snav-btn" data-screen="settings">
+        <span class="snav-icon">⚙️</span>
+        <span class="snav-label">Settings</span>
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="sidebar-ver">v3.07</div>
+    </div>
+  </aside>
+
+  <!-- ── RIGHT MAIN AREA ── -->
+  <div class="main-area">
+
+    <!-- Top Header Bar -->
+    <header class="top-bar">
+      <span class="top-title" id="screen-title">Sales</span>
+      <div class="top-actions">
+        <button class="icon-btn" id="search-toggle">🔍</button>
+        <div class="top-owner" id="top-owner-label">👑 Owner</div>
+        <button class="top-logout" id="top-logout">🚪 Logout</button>
+      </div>
+    </header>
+
+    <!-- Screen Content -->
+    <div class="screens-wrap">
+
+      <!-- ═══════════════════════════════════════
+           SALES SCREEN  —  left panel + right grid
+           ═══════════════════════════════════════ -->
+      <section class="screen active" id="screen-sales">
+
+        <!-- LEFT: Cart panel -->
+        <div class="sales-left">
+          <div class="cart-header">
+            <span class="cart-title">🛒 Cart</span>
+            <span class="ticket-badge" id="ticket-count">0</span>
+          </div>
+
+          <div class="cart-body" id="cart-body">
+            <div class="cart-empty" id="cart-empty">
+              <span>🛍</span>
+              <span>No items yet</span>
+              <span>Tap a product to add</span>
+            </div>
+            <div class="cart-items" id="cart-items"></div>
+          </div>
+
+          <div class="cart-footer">
+            <div class="cart-total-row">
+              <span>Total</span>
+              <span class="cart-total-amt" id="ticket-total">₱0.00</span>
+            </div>
+            <div class="cart-btns">
+              <button class="btn-clear" id="btn-clear" style="display:none">🗑 Clear</button>
+              <button class="btn-charge" id="btn-charge" disabled>CHARGE ›</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: Products -->
+        <div class="sales-right">
+          <div class="filter-bar">
+            <input type="text" class="search-input" id="product-search" placeholder="🔍 Search products…" />
+            <div class="gender-filters">
+              <button class="filter-btn active" data-gender="all">All</button>
+              <button class="filter-btn" data-gender="male">💙 Male</button>
+              <button class="filter-btn" data-gender="female">💗 Female</button>
+            </div>
+          </div>
+
+          <div class="product-grid" id="product-grid"></div>
+
+          <div class="page-bar">
+            <button class="page-nav-btn" id="btn-prev-page" disabled>‹ Prev</button>
+            <div class="page-indicators" id="page-indicators"></div>
+            <button class="page-nav-btn" id="btn-next-page">Next ›</button>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ═══════════════════════════════════════
+           RECEIPTS SCREEN
+           ═══════════════════════════════════════ -->
+      <section class="screen" id="screen-receipts">
+        <!-- List -->
+        <div class="receipts-left">
+          <div class="receipt-search-bar">
+            <input type="text" class="search-input" id="receipt-search" placeholder="🔍 Search receipts…" />
+          </div>
+          <div class="receipt-list" id="receipt-list"></div>
+        </div>
+        <!-- Detail -->
+        <div class="receipts-right" id="receipts-right">
+          <div class="receipt-placeholder" id="receipt-placeholder">
+            <span>🧾</span>
+            <span>Select a receipt to view details</span>
+          </div>
+          <div class="receipt-detail-inner" id="receipt-detail-inner" style="display:none">
+            <div class="receipt-detail-header">
+              <span id="detail-id">#2-0001</span>
+              <div class="detail-header-actions">
+                <button class="btn-refund" id="btn-refund">REFUND</button>
+                <button class="btn-close-detail" id="btn-close-detail">✕</button>
+              </div>
+            </div>
+            <div class="receipt-detail-body" id="receipt-detail-body"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════
+           ITEMS SCREEN
+           ═══════════════════════════════════════ -->
+      <section class="screen" id="screen-items">
+        <div class="items-toolbar">
+          <span class="items-count" id="items-count">30 items</span>
+          <button class="btn-add-product" id="btn-add-product">+ Add Product</button>
+        </div>
+        <div class="items-list" id="items-list"></div>
+      </section>
+
+      <!-- ═══════════════════════════════════════
+           INVENTORY SCREEN
+           ═══════════════════════════════════════ -->
+      <section class="screen" id="screen-inventory">
+
+        <div class="inv-summary-bar" id="inv-summary-bar">
+          <div class="inv-card inv-card--total"><span class="inv-card-icon">📦</span><div><div class="inv-card-num" id="inv-sum-total">0</div><div class="inv-card-lbl">Total</div></div></div>
+          <div class="inv-card inv-card--ok">   <span class="inv-card-icon">✅</span><div><div class="inv-card-num" id="inv-sum-ok">0</div>   <div class="inv-card-lbl">In Stock</div></div></div>
+          <div class="inv-card inv-card--low">  <span class="inv-card-icon">⚠️</span><div><div class="inv-card-num" id="inv-sum-low">0</div>  <div class="inv-card-lbl">Low</div></div></div>
+          <div class="inv-card inv-card--restock"><span class="inv-card-icon">🔄</span><div><div class="inv-card-num" id="inv-sum-restock">0</div><div class="inv-card-lbl">Restock</div></div></div>
+          <div class="inv-card inv-card--out">  <span class="inv-card-icon">❌</span><div><div class="inv-card-num" id="inv-sum-out">0</div>   <div class="inv-card-lbl">Out of Stock</div></div></div>
+        </div>
+
+        <div class="inv-alert" id="inv-alert" style="display:none">
+          <span>🔔</span><span id="inv-alert-text"></span>
+          <button id="inv-alert-close">✕</button>
+        </div>
+
+        <div class="inv-toolbar">
+          <input type="text" class="search-input" id="inv-search" placeholder="🔍 Search by name, ID, or category…" style="flex:1" />
+          <div class="inv-filter-chips">
+            <button class="inv-chip active" data-istatus="all">All</button>
+            <button class="inv-chip" data-istatus="In Stock">✅ In Stock</button>
+            <button class="inv-chip" data-istatus="Low Stock">⚠️ Low</button>
+            <button class="inv-chip" data-istatus="Need Restock">🔄 Restock</button>
+            <button class="inv-chip" data-istatus="Out of Stock">❌ Out of Stock</button>
+          </div>
+          <button class="btn-inv-add" id="btn-inv-add">+ Add Item</button>
+        </div>
+
+        <div class="inv-table-wrap">
+          <table class="inv-tbl">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Product Name</th>
+                <th>Category</th>
+                <th class="th-num">Qty</th>
+                <th class="th-num">Min</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="inv-tbody"></tbody>
+          </table>
+          <div class="inv-empty" id="inv-empty" style="display:none">No items found.</div>
+        </div>
+
+        <div class="inv-history-panel">
+          <div class="inv-history-header">
+            <span>📜 Stock History</span>
+            <button class="inv-history-toggle" id="inv-history-toggle">Hide ▲</button>
+          </div>
+          <div class="inv-history-body" id="inv-history-body">
+            <div id="inv-history-list"></div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ═══════════════════════════════════════
+           USERS SCREEN (Owner only)
+           ═══════════════════════════════════════ -->
+      <section class="screen" id="screen-users">
+        <div class="users-toolbar">
+          <div>
+            <div class="users-title">👥 User Management</div>
+            <div class="users-sub">Manage Owner and Employee accounts</div>
+          </div>
+          <button class="btn-add-user" id="btn-add-user">+ Add User</button>
+        </div>
+        <div class="users-list" id="users-list"></div>
+        <div class="users-access-panel">
+          <div class="access-title">🔐 Role Permissions</div>
+          <div class="access-grid">
+            <div class="access-card">
+              <div class="access-role-head owner-head">👑 Owner</div>
+              <div class="access-item access-yes">✅ Sales &amp; Checkout</div>
+              <div class="access-item access-yes">✅ View Receipts</div>
+              <div class="access-item access-yes">✅ Process Refunds</div>
+              <div class="access-item access-yes">✅ Add / Edit Products</div>
+              <div class="access-item access-yes">✅ Delete Products</div>
+              <div class="access-item access-yes">✅ Inventory Management</div>
+              <div class="access-item access-yes">✅ User Management</div>
+              <div class="access-item access-yes">✅ Settings &amp; Config</div>
+            </div>
+            <div class="access-card">
+              <div class="access-role-head emp-head">👤 Employee</div>
+              <div class="access-item access-yes">✅ Sales &amp; Checkout</div>
+              <div class="access-item access-yes">✅ View Receipts</div>
+              <div class="access-item access-no">❌ Process Refunds</div>
+              <div class="access-item access-no">❌ Add / Edit Products</div>
+              <div class="access-item access-no">❌ Delete Products</div>
+              <div class="access-item access-yes">✅ View Inventory</div>
+              <div class="access-item access-no">❌ User Management</div>
+              <div class="access-item access-no">❌ Settings &amp; Config</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════
+           SETTINGS SCREEN
+           ═══════════════════════════════════════ -->
+      <section class="screen" id="screen-settings">
+        <div class="settings-wrap">
+          <div class="settings-group">
+            <div class="settings-group-title">Store Information</div>
+            <div class="settings-row"><span>Store Name</span><span>The1470</span></div>
+            <div class="settings-row"><span>POS Name</span><span>POS_CPET-8 LAB</span></div>
+            <div class="settings-row"><span>Currency</span><span>PHP (₱)</span></div>
+            <div class="settings-row"><span>Tax</span><span>None</span></div>
+            <div class="settings-row"><span>Receipt Footer</span><span>Thank you!</span></div>
+          </div>
+          <div class="settings-group">
+            <div class="settings-group-title">About</div>
+            <div class="settings-row"><span>Version</span><span>v3.07</span></div>
+            <div class="settings-row"><span>Edition</span><span>Fragrance Shop</span></div>
+            <div class="settings-row"><span>Owner</span><span>Owner</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════
+           HISTORY SCREEN
+           ═══════════════════════════════════════ -->
+      <section class="screen" id="screen-history">
+        <div class="history-wrap">
+
+          <!-- Summary Cards -->
+          <div class="hist-summary-bar" id="hist-summary-bar">
+            <div class="hist-card hist-card--sales">
+              <span class="hist-card-icon">💰</span>
+              <div>
+                <div class="hist-card-num" id="hist-sum-sales">₱0.00</div>
+                <div class="hist-card-lbl">Total Sales</div>
+              </div>
+            </div>
+            <div class="hist-card hist-card--txn">
+              <span class="hist-card-icon">🧾</span>
+              <div>
+                <div class="hist-card-num" id="hist-sum-txn">0</div>
+                <div class="hist-card-lbl">Transactions</div>
+              </div>
+            </div>
+            <div class="hist-card hist-card--refund">
+              <span class="hist-card-icon">↩️</span>
+              <div>
+                <div class="hist-card-num" id="hist-sum-refunds">0</div>
+                <div class="hist-card-lbl">Refunds</div>
+              </div>
+            </div>
+            <div class="hist-card hist-card--inv">
+              <span class="hist-card-icon">📦</span>
+              <div>
+                <div class="hist-card-num" id="hist-sum-inv">0</div>
+                <div class="hist-card-lbl">Stock Changes</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Filters -->
+          <div class="hist-toolbar">
+            <input type="text" class="search-input" id="hist-search" placeholder="🔍 Search history…" style="flex:1" />
+            <div class="hist-filter-chips">
+              <button class="hist-chip active" data-htype="all">All</button>
+              <button class="hist-chip" data-htype="sale">💰 Sales</button>
+              <button class="hist-chip" data-htype="refund">↩️ Refunds</button>
+              <button class="hist-chip" data-htype="stock">📦 Stock</button>
+            </div>
+          </div>
+
+          <!-- Unified Timeline -->
+          <div class="hist-timeline" id="hist-timeline"></div>
+
+        </div>
+      </section>
+
+    </div><!-- /screens-wrap -->
+  </div><!-- /main-area -->
+</div><!-- /app -->
+
+<!-- ═══════════ MODALS ═══════════ -->
+
+<!-- Charge Modal -->
+<div class="modal-overlay" id="charge-modal">
+  <div class="modal-sheet">
+    <div class="modal-top">
+      <div class="modal-title">Charge Customer</div>
+      <button class="modal-x" onclick="closeModal('charge-modal')">✕</button>
+    </div>
+    <div class="modal-amount" id="charge-amount">₱0.00</div>
+    <label class="modal-label">Payment Method</label>
+    <div class="payment-methods">
+      <button class="pay-btn active" data-pay="Cash">💵 Cash</button>
+      <button class="pay-btn" data-pay="Card">💳 Card</button>
+      <button class="pay-btn" data-pay="GCash">📱 GCash</button>
+    </div>
+    <div id="cash-section">
+      <label class="modal-label">Cash Received</label>
+      <input type="number" class="cash-input" id="cash-input" placeholder="0.00" />
+      <div class="change-display" id="change-display"></div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel-modal" id="cancel-charge">Cancel</button>
+      <button class="btn-confirm" id="confirm-charge">✓ Confirm Payment</button>
+    </div>
+  </div>
+</div>
+
+<!-- Refund Modal -->
+<div class="modal-overlay center" id="refund-modal">
+  <div class="modal-sheet modal-sheet--sm">
+    <div class="modal-title">Confirm Refund</div>
+    <div class="modal-text" id="refund-text"></div>
+    <div class="modal-actions">
+      <button class="btn-cancel-modal" id="cancel-refund">Cancel</button>
+      <button class="btn-danger" id="confirm-refund">Refund</button>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Product Modal -->
+<div class="modal-overlay center" id="edit-modal">
+  <div class="modal-sheet">
+    <div class="modal-top">
+      <div class="modal-title" id="edit-modal-title">Edit Product</div>
+      <button class="modal-x" id="cancel-edit">✕</button>
+    </div>
+    <label class="modal-label">Name</label>
+    <input type="text" class="modal-input" id="edit-name" placeholder="e.g. Sauvage Dior 85ML" />
+    <label class="modal-label">Price (₱)</label>
+    <input type="number" class="modal-input" id="edit-price" value="150" />
+    <label class="modal-label">Gender</label>
+    <div class="gender-toggle">
+      <button class="gtoggle active" data-g="male">💙 Male</button>
+      <button class="gtoggle" data-g="female">💗 Female</button>
+    </div>
+    <div class="modal-actions" style="margin-top:16px">
+      <button class="btn-danger" id="delete-product" style="display:none">🗑 Delete</button>
+      <button class="btn-cancel-modal" id="cancel-edit-btn">Cancel</button>
+      <button class="btn-confirm" id="save-product">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Inventory Add/Edit Modal -->
+<div class="modal-overlay center" id="inv-modal">
+  <div class="modal-sheet">
+    <div class="modal-top">
+      <div class="modal-title" id="inv-modal-title">Add Inventory Item</div>
+      <button class="modal-x" id="inv-modal-close">✕</button>
+    </div>
+    <div class="inv-form-grid">
+      <div>
+        <label class="modal-label">Product ID</label>
+        <input type="text" class="modal-input" id="inv-f-id" placeholder="e.g. PRD-031" />
+      </div>
+      <div>
+        <label class="modal-label">Product Name</label>
+        <input type="text" class="modal-input" id="inv-f-name" placeholder="e.g. Sauvage Dior 85ML" />
+      </div>
+      <div>
+        <label class="modal-label">Category</label>
+        <select class="modal-input" id="inv-f-category">
+          <option>Perfume</option><option>Cologne</option>
+          <option>Body Spray</option><option>Essential Oil</option><option>Other</option>
+        </select>
+      </div>
+      <div>
+        <label class="modal-label">Current Qty</label>
+        <input type="number" class="modal-input" id="inv-f-qty" placeholder="0" min="0" />
+      </div>
+      <div>
+        <label class="modal-label">Min Stock Level</label>
+        <input type="number" class="modal-input" id="inv-f-min" placeholder="5" min="1" />
+      </div>
+      <div>
+        <label class="modal-label">Status Preview</label>
+        <div class="inv-status-preview" id="inv-status-preview">— enter qty &amp; min</div>
+      </div>
+    </div>
+    <div class="modal-actions" style="margin-top:16px">
+      <button class="btn-danger" id="inv-delete-btn" style="display:none">🗑 Delete</button>
+      <button class="btn-cancel-modal" id="inv-cancel-btn">Cancel</button>
+      <button class="btn-confirm" id="inv-save-btn">💾 Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Inventory Adjust Modal -->
+<div class="modal-overlay center" id="inv-adjust-modal">
+  <div class="modal-sheet modal-sheet--sm">
+    <div class="modal-top">
+      <div class="modal-title">Adjust Stock</div>
+      <button class="modal-x" id="inv-adjust-close">✕</button>
+    </div>
+    <div class="inv-adjust-name" id="inv-adjust-name"></div>
+    <div class="inv-adjust-current" id="inv-adjust-current"></div>
+    <div class="inv-adjust-row">
+      <button class="inv-adj-btn inv-adj-minus" id="inv-adj-minus">−</button>
+      <input type="number" class="inv-adj-input" id="inv-adj-qty" value="1" min="1" />
+      <button class="inv-adj-btn inv-adj-plus" id="inv-adj-plus">+</button>
+    </div>
+    <label class="modal-label">Reason</label>
+    <select class="modal-input" id="inv-adj-reason">
+      <option>Restock</option><option>Sale</option>
+      <option>Manual Adjustment</option><option>Damage/Loss</option><option>Customer Return</option>
+    </select>
+    <div class="modal-actions" style="margin-top:16px">
+      <button class="btn-cancel-modal" id="inv-adj-cancel">Cancel</button>
+      <button class="btn-danger-outline" id="inv-adj-sub">− Subtract</button>
+      <button class="btn-confirm" id="inv-adj-add">+ Add</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add/Edit User Modal -->
+<div class="modal-overlay center" id="user-modal">
+  <div class="modal-sheet">
+    <div class="modal-top">
+      <div class="modal-title" id="user-modal-title">Add User</div>
+      <button class="modal-x" id="user-modal-close">✕</button>
+    </div>
+    <div class="user-form-grid">
+      <div>
+        <label class="modal-label">Full Name</label>
+        <input type="text" class="modal-input" id="u-fullname" placeholder="e.g. Juan dela Cruz" />
+      </div>
+      <div>
+        <label class="modal-label">Username</label>
+        <input type="text" class="modal-input" id="u-username" placeholder="e.g. juan123" autocomplete="off" />
+      </div>
+      <div>
+        <label class="modal-label">Password</label>
+        <input type="password" class="modal-input" id="u-password" placeholder="Enter password" />
+      </div>
+      <div>
+        <label class="modal-label">Role</label>
+        <select class="modal-input" id="u-role">
+          <option value="owner">👑 Owner</option>
+          <option value="employee">👤 Employee</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-actions" style="margin-top:16px">
+      <button class="btn-danger" id="u-delete-btn" style="display:none">🗑 Delete</button>
+      <button class="btn-cancel-modal" id="u-cancel-btn">Cancel</button>
+      <button class="btn-confirm" id="u-save-btn">💾 Save User</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- Access Denied overlay -->
+<div class="access-denied" id="access-denied">
+  <div class="access-denied-card">
+    <div class="access-denied-icon">🔒</div>
+    <div class="access-denied-title">Access Denied</div>
+    <div class="access-denied-text">This feature is only available to <strong>Owner</strong> accounts. Please contact your manager.</div>
+    <button class="access-denied-btn" id="access-denied-ok">Got it</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
